@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div>
   <form @submit.prevent='submitForm'>
     <div class='form-control'>
       <label>Your E-mail</label>
