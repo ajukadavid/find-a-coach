@@ -1,4 +1,7 @@
 <template>
+  <base-dialog :show='!!error' title='An error occurred'>
+    <p>{{ error }}</p>
+  </base-dialog>
   <section>
     <coach-filter @change-filter='setFilters'></coach-filter>
   </section>
@@ -30,15 +33,17 @@
 </template>
 
 <script>
+import BaseDialog from '../../Components/ui/BaseDialog';
 import CoachFilter from '../../Components/coaches/CoachFilter';
 import CoachItem from '../../Components/coaches/CoachItem';
 import BaseCard from '../../Components/ui/BaseCard';
 import BaseButton from '../../Components/ui/BaseButton';
 export default {
-  components: { BaseButton, BaseCard, CoachItem, CoachFilter},
+  components: { BaseButton, BaseCard, CoachItem, CoachFilter, BaseDialog},
   data(){
     return {
       isLoading: false,
+      error: null,
       activeFilters: {
         frontend: true,
         backend: true,
@@ -75,9 +80,13 @@ export default {
     },
    async loadCoaches() {
       this.isLoading = true;
-     await this.$store.dispatch('coaches/loadCoaches');
-       this.isLoading = false
+      try {
+        await this.$store.dispatch('coaches/loadCoaches');
 
+      }catch(error){
+        this.error = error.message || 'Something went wrong!'
+      }
+       this.isLoading = false
    }
   },
   created(){
