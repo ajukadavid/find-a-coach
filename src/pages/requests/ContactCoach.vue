@@ -1,4 +1,5 @@
 <template>
+  <div></div>
   <form @submit.prevent='submitForm'>
     <div class='form-control'>
       <label>Your E-mail</label>
@@ -13,6 +14,7 @@
       <base-button>Send Message</base-button>
     </div>
   </form>
+  </div>
 </template>
 <script>
 import BaseButton from '../../Components/ui/BaseButton';
